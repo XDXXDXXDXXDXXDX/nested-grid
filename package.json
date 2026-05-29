@@ -1,0 +1,25 @@
+{
+  "name": "nested-grid",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --filter examples dev",
+    "build": "pnpm -r build",
+    "typecheck": "pnpm -r typecheck",
+    "release": "node scripts/publish.mjs",
+    "format": "biome check --write && biome format --write",
+    "lint": "biome check && biome format",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx,json,md,css}": [
+      "biome check --write --no-errors-on-unmatched",
+      "biome format --write --no-errors-on-unmatched"
+    ]
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.16",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.5",
+    "typescript": "^6.0.3"
+  }
+}

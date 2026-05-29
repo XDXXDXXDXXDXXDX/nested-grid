@@ -1,0 +1,59 @@
+{
+  "name": "@nested-grid/react",
+  "version": "0.2.0",
+  "description": "React binding for @nested-grid/core — renders layout trees as DOM with headless, unstyled output.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XDXXDXXDXXDXXDX/nested-grid.git",
+    "directory": "packages/react"
+  },
+  "homepage": "https://github.com/XDXXDXXDXXDXXDX/nested-grid/tree/main/packages/react#readme",
+  "bugs": {
+    "url": "https://github.com/XDXXDXXDXXDXXDX/nested-grid/issues"
+  },
+  "keywords": [
+    "css-grid",
+    "grid-layout",
+    "react",
+    "tree",
+    "nested",
+    "hierarchical",
+    "json-driven",
+    "headless",
+    "render-props",
+    "typescript"
+  ],
+  "author": "dongxiang",
+  "scripts": {
+    "build": "webpack --config webpack.config.js && tsc --emitDeclarationOnly",
+    "typecheck": "tsc --noEmit"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "react": ">=18.0.0"
+  },
+  "dependencies": {
+    "@nested-grid/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.29",
+    "esbuild-loader": "^3.0.0",
+    "react": "^18.3.1",
+    "webpack": "^5.97.0",
+    "webpack-cli": "^6.0.1"
+  }
+}
