@@ -1,27 +1,17 @@
 import type { NestedGridProps } from '@nested-grid/react'
 import { NestedGrid } from '@nested-grid/react'
-import type { ReactNode } from 'react'
 import { useMemo } from 'react'
 import { CardGroup } from './CardGroup'
 import { CardItem } from './CardItem'
 import { themeToVars } from './theme'
-import type {
-  CardGridNode,
-  CardLayoutNode,
-  CardRenderGroupProps,
-  CardRenderItemProps,
-  CardTheme,
-} from './types'
+import type { CardGridNode, CardLayoutNode, CardTheme } from './types'
 
 export interface NestedGridCardsProps<T = unknown>
-  extends Omit<NestedGridProps<T>, 'nodes' | 'renderItem' | 'renderGroup' | 'onNodeClick'> {
+  extends Omit<NestedGridProps<T, CardLayoutNode<T>>, 'nodes'> {
   nodes: CardGridNode<T>[]
   theme?: CardTheme
   showContent?: boolean
   itemOnlyGap?: string | string[]
-  renderItem?: (props: CardRenderItemProps<T>) => ReactNode
-  renderGroup?: (props: CardRenderGroupProps<T>) => ReactNode
-  onNodeClick?: (node: CardLayoutNode<T>) => void
 }
 
 export function NestedGridCards<T = unknown>({
@@ -31,7 +21,6 @@ export function NestedGridCards<T = unknown>({
   nodes,
   renderItem,
   renderGroup,
-  onNodeClick,
   style,
   ...rest
 }: NestedGridCardsProps<T>) {
@@ -57,20 +46,25 @@ export function NestedGridCards<T = unknown>({
   }, [nodes, itemOnlyGap])
 
   return (
-    <NestedGrid
+    <NestedGrid<T, CardLayoutNode<T>>
       nodes={resolvedNodes}
       style={{ ...themeToVars(theme), ...style }}
-      renderItem={(props) => {
-        const cardNode = props.node as CardLayoutNode<T>
-        const oriNode = <CardItem node={cardNode} showContent={showContent} />
-        return renderItem ? renderItem({ ...props, node: cardNode, oriNode }) : oriNode
-      }}
-      renderGroup={(props) => {
-        const cardNode = props.node as CardLayoutNode<T>
-        const oriNode = <CardGroup node={cardNode}>{props.children}</CardGroup>
-        return renderGroup ? renderGroup({ ...props, node: cardNode, oriNode }) : oriNode
-      }}
-      onNodeClick={onNodeClick && ((node) => onNodeClick(node as CardLayoutNode<T>))}
+      renderItem={
+        renderItem
+          ? (props) => {
+              const oriNode = <CardItem node={props.node} showContent={showContent} />
+              return renderItem({ ...props, oriNode })
+            }
+          : (props) => <CardItem node={props.node} showContent={showContent} />
+      }
+      renderGroup={
+        renderGroup
+          ? (props) => {
+              const oriNode = <CardGroup node={props.node}>{props.children}</CardGroup>
+              return renderGroup({ ...props, oriNode })
+            }
+          : (props) => <CardGroup node={props.node}>{props.children}</CardGroup>
+      }
       {...rest}
     />
   )

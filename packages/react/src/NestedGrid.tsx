@@ -4,7 +4,7 @@ import type { NestedGridProps, RenderGroupProps, RenderItemProps, RenderNodeProp
 
 const cx = (...args: (string | false | undefined | null)[]) => args.filter(Boolean).join(' ')
 
-export function NestedGrid<T = unknown>({
+export function NestedGrid<T = unknown, N extends LayoutNode<T> = LayoutNode<T>>({
   nodes,
   defaultColumns,
   gap,
@@ -15,7 +15,7 @@ export function NestedGrid<T = unknown>({
   className,
   style,
   ...restProps
-}: NestedGridProps<T>) {
+}: NestedGridProps<T, N>) {
   const layout = useMemo(
     () =>
       createLayout(nodes, {
@@ -28,9 +28,9 @@ export function NestedGrid<T = unknown>({
   return (
     <div className={cx('rng-root', className)} style={style} {...restProps}>
       {layout.map((node) => (
-        <RenderNode
+        <RenderNode<T, N>
           key={node.id}
-          node={node}
+          node={node as N}
           renderNode={renderNode}
           renderItem={renderItem}
           renderGroup={renderGroup}
@@ -41,18 +41,18 @@ export function NestedGrid<T = unknown>({
   )
 }
 
-function RenderNode<T>({
+function RenderNode<T, N extends LayoutNode<T> = LayoutNode<T>>({
   node,
   renderNode,
   renderItem,
   renderGroup,
   onNodeClick,
 }: {
-  node: LayoutNode<T>
-  renderNode?: (props: RenderNodeProps<T>) => ReactNode
-  renderItem?: (props: RenderItemProps<T>) => ReactNode
-  renderGroup?: (props: RenderGroupProps<T>) => ReactNode
-  onNodeClick?: (node: LayoutNode<T>) => void
+  node: N
+  renderNode?: (props: RenderNodeProps<T, N>) => ReactNode
+  renderItem?: (props: RenderItemProps<T, N>) => ReactNode
+  renderGroup?: (props: RenderGroupProps<T, N>) => ReactNode
+  onNodeClick?: (node: N) => void
 }) {
   const { type, depth, index, id, children, gridItemStyle, gridContainerStyle } = node
   const isGroup = type === 'group'
@@ -85,9 +85,9 @@ function RenderNode<T>({
   const childNodes = isGroup ? (
     <div {...gridContainerProps}>
       {children?.map((child) => (
-        <RenderNode
+        <RenderNode<T, N>
           key={child.id}
-          node={child}
+          node={child as N}
           renderNode={renderNode}
           renderItem={renderItem}
           renderGroup={renderGroup}
