@@ -63,7 +63,7 @@ Styled item card. Accepts:
 
 | Prop           | Type                                          | Description                                            |
 | -------------- | --------------------------------------------- | ------------------------------------------------------ |
-| `node`         | `LayoutNode<T>`                               | The layout node                                        |
+| `node`         | `CardLayoutNode<T>`                           | The layout node with `title` and `content` at top level |
 | `showContent?` | `boolean`                                     | Expand content body                                    |
 | `styles?`      | `CardStyles`                                  | Style overrides: `header` and `body` CSS properties    |
 | `titleExtra?`  | `(state: { expanded: boolean }) => ReactNode` | Extra element in the title row (tags, badges, toggles) |
@@ -74,7 +74,7 @@ Styled group card. Accepts:
 
 | Prop       | Type            | Description           |
 | ---------- | --------------- | --------------------- |
-| `node`     | `LayoutNode<T>` | The layout node       |
+| `node`     | `CardLayoutNode<T>` | The layout node with `title` at top level |
 | `children` | `ReactNode`     | Pre-rendered children |
 
 ### `CardTheme`

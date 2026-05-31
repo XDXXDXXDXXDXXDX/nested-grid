@@ -20,8 +20,7 @@ pnpm add @nested-grid/react
 ## 快速开始
 
 ```tsx
-import { NestedGrid } from "@nested-grid/react";
-import type { GridNode } from "@nested-grid/core";
+import { NestedGrid, type GridNode } from "@nested-grid/react";
 
 const nodes: GridNode[] = [
   {

@@ -20,8 +20,7 @@ Requires `react >= 18.0.0` and `@nested-grid/core`.
 ## Quick Start
 
 ```tsx
-import { NestedGrid } from "@nested-grid/react";
-import type { GridNode } from "@nested-grid/core";
+import { NestedGrid, type GridNode } from "@nested-grid/react";
 
 const nodes: GridNode[] = [
   {

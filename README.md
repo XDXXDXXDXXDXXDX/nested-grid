@@ -10,7 +10,7 @@ JSON tree  →  computed CSS Grid styles  →  React DOM
 ## Why
 
 - **JSON-driven** — layouts are data, not hand-crafted div soup. Edit, generate, or fetch from an API.
-- **CSS Grid native** — every node maps to real `display: grid`, `grid-template-columns`, `grid-column: span N`. Noabsolute positioning hacks.
+- **CSS Grid native** — every node maps to real `display: grid`, `grid-template-columns`, `grid-column: span N`. No absolute positioning hacks.
 - **Hierarchical by design** — tree nodes nest naturally into nested grids. Depth-aware gap, columns, and styling.
 - **Virtual groups** — transparent layout containers that structure children without visual chrome.
 - **TypeScript-first** — full type safety from `GridNode` definition to render props.

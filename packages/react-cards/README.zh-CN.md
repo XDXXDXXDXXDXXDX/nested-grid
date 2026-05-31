@@ -63,7 +63,7 @@ function App() {
 
 | 属性 | 类型 | 说明 |
 |---|---|---|
-| `node` | `LayoutNode<T>` | 布局节点 |
+| `node` | `CardLayoutNode<T>` | 布局节点，`title` 和 `content` 在顶层 |
 | `showContent?` | `boolean` | 展开内容体 |
 | `styles?` | `CardStyles` | 样式覆盖：`header` 和 `body` CSS 属性 |
 | `titleExtra?` | `(state: { expanded: boolean }) => ReactNode` | 标题行附加元素（标签、徽章、开关） |
@@ -74,7 +74,7 @@ function App() {
 
 | 属性 | 类型 | 说明 |
 |---|---|---|
-| `node` | `LayoutNode<T>` | 布局节点 |
+| `node` | `CardLayoutNode<T>` | 布局节点，`title` 在顶层 |
 | `children` | `ReactNode` | 预渲染的子节点 |
 
 ### `CardTheme`
