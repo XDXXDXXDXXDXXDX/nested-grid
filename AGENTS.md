@@ -31,3 +31,4 @@ pnpm dev             # tsx watch src/dev.ts
 - `...rest` must be spread last on the target element so the user can override any internal defaults.
 - Do not destructure and pass through a prop unchanged — let `...rest` carry it. Only destructure what is actually used, transformed, or intercepted.
 - Do not extract single-use helper functions. If a piece of logic is not reused, write it inline where it belongs.
+- When accessing a chain where a value could be `undefined` (e.g. `data?.xxx` when `data` is optional), use optional chaining (`data?.xxx`). Do not use `as` type assertions to bypass TypeScript's strict checks.

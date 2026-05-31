@@ -1,11 +1,10 @@
-import type { LayoutNode } from '@nested-grid/core'
 import type { HTMLAttributes, ReactNode } from 'react'
 import { useState } from 'react'
 import { themeToVars } from './theme'
-import type { CardStyles, CardTheme } from './types'
+import type { CardLayoutNode, CardStyles, CardTheme } from './types'
 
 export interface CardItemProps<T = unknown> extends HTMLAttributes<HTMLDivElement> {
-  node: LayoutNode<T>
+  node: CardLayoutNode<T>
   theme?: CardTheme
   styles?: CardStyles
   showContent?: boolean
@@ -25,9 +24,8 @@ export function CardItem<T = unknown>({
   ...rest
 }: CardItemProps<T>) {
   const [hover, setHover] = useState(false)
-  const data = node.data as Record<string, unknown> | undefined
-  const title = data?.title ? String(data.title) : ''
-  const content = data?.content ? String(data.content) : ''
+  const title = node.title ?? ''
+  const content = node.content ?? ''
   const hasContent = content.length > 0
   const expanded = showContent || (hover && hasContent)
 

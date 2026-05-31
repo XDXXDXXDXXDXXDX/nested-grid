@@ -1,14 +1,14 @@
-import type { GridNode } from '@nested-grid/core'
+import type { CardGridNode } from '@nested-grid/react-cards'
 
 export interface ColorData {
-  name: string
   hex: string
   textColor: string
 }
 
-const swatch = (name: string, hex: string): GridNode<ColorData> => ({
+const swatch = (name: string, hex: string): CardGridNode<ColorData> => ({
   id: name.toLowerCase().replace(/\s+/g, '-'),
-  data: { name, hex, textColor: isLight(hex) ? '#1a1a2e' : '#ffffff' },
+  title: name,
+  data: { hex, textColor: isLight(hex) ? '#1a1a2e' : '#ffffff' },
 })
 
 function isLight(hex: string): boolean {
@@ -18,7 +18,7 @@ function isLight(hex: string): boolean {
   return r * 0.299 + g * 0.587 + b * 0.114 > 160
 }
 
-export const nodes: GridNode<ColorData>[] = [
+export const nodes: CardGridNode<ColorData>[] = [
   {
     id: 'palette',
     columns: 3,
@@ -26,7 +26,8 @@ export const nodes: GridNode<ColorData>[] = [
     children: [
       {
         id: 'primary',
-        data: { name: 'Primary', hex: '#6366f1', textColor: '#ffffff' },
+        title: 'Primary',
+        data: { hex: '#6366f1', textColor: '#ffffff' },
         columns: 3,
         children: [
           swatch('Primary 50', '#eef2ff'),
@@ -43,7 +44,8 @@ export const nodes: GridNode<ColorData>[] = [
       },
       {
         id: 'neutral',
-        data: { name: 'Neutral', hex: '#6b7280', textColor: '#ffffff' },
+        title: 'Neutral',
+        data: { hex: '#6b7280', textColor: '#ffffff' },
         columns: 3,
         children: [
           swatch('Neutral 50', '#f9fafb'),
@@ -60,7 +62,8 @@ export const nodes: GridNode<ColorData>[] = [
       },
       {
         id: 'accent',
-        data: { name: 'Accent', hex: '#ec4899', textColor: '#ffffff' },
+        title: 'Accent',
+        data: { hex: '#ec4899', textColor: '#ffffff' },
         columns: 3,
         children: [
           swatch('Rose', '#f43f5e'),
@@ -77,7 +80,8 @@ export const nodes: GridNode<ColorData>[] = [
       },
       {
         id: 'semantic',
-        data: { name: 'Semantic', hex: '#ef4444', textColor: '#ffffff' },
+        title: 'Semantic',
+        data: { hex: '#ef4444', textColor: '#ffffff' },
         columns: 3,
         children: [
           swatch('Success', '#10b981'),

@@ -1,10 +1,4 @@
-import type { GridNode } from '@nested-grid/core'
-import type { CardTheme } from '@nested-grid/react-cards'
-
-export interface ArchitectureData {
-  title: string
-  content?: string
-}
+import type { CardGridNode, CardTheme } from '@nested-grid/react-cards'
 
 export const blue: CardTheme = {
   groupBorder: '1px solid #bfdbfe',
@@ -38,7 +32,7 @@ export const purple: CardTheme = {
   itemTitleFontSize: '14px',
 }
 
-export const nodes: GridNode<ArchitectureData>[] = [
+export const nodes: CardGridNode[] = [
   {
     id: 'arch',
     columns: '1fr 150px',
@@ -46,31 +40,28 @@ export const nodes: GridNode<ArchitectureData>[] = [
     children: [
       {
         id: 'client',
-        data: { title: 'Client Tier' },
+        title: 'Client Tier',
         children: [
           {
             id: 'channels',
-            data: { title: 'Delivery Channels' },
+            title: 'Delivery Channels',
             columns: 2,
             children: [
               {
                 id: 'web',
-                data: { title: 'Web Frontend' },
+                title: 'Web Frontend',
                 children: [
-                  { id: 'portal', data: { title: 'Customer Portal', content: 'Next.js · SSR' } },
-                  { id: 'admin', data: { title: 'Admin Panel', content: 'React · SPA' } },
-                  {
-                    id: 'lib',
-                    data: { title: 'Component Library', content: 'Storybook · Tailwind' },
-                  },
+                  { id: 'portal', title: 'Customer Portal', content: 'Next.js · SSR' },
+                  { id: 'admin', title: 'Admin Panel', content: 'React · SPA' },
+                  { id: 'lib', title: 'Component Library', content: 'Storybook · Tailwind' },
                 ],
               },
               {
                 id: 'mobile',
-                data: { title: 'Mobile Apps' },
+                title: 'Mobile Apps',
                 children: [
-                  { id: 'ios', data: { title: 'iOS App', content: 'SwiftUI · Core Data' } },
-                  { id: 'android', data: { title: 'Android App', content: 'Jetpack Compose' } },
+                  { id: 'ios', title: 'iOS App', content: 'SwiftUI · Core Data' },
+                  { id: 'android', title: 'Android App', content: 'Jetpack Compose' },
                 ],
               },
             ],
@@ -79,55 +70,52 @@ export const nodes: GridNode<ArchitectureData>[] = [
       },
       {
         id: 'infra',
-        data: { title: 'Data & Infra' },
+        title: 'Data & Infra',
         rowSpan: 2,
         children: [
-          { id: 'redis', data: { title: 'Redis' } },
-          { id: 'mq', data: { title: 'RabbitMQ' } },
-          { id: 's3', data: { title: 'S3 Storage' } },
+          { id: 'redis', title: 'Redis' },
+          { id: 'mq', title: 'RabbitMQ' },
+          { id: 's3', title: 'S3 Storage' },
         ],
       },
       {
         id: 'service',
-        data: { title: 'Service Tier' },
+        title: 'Service Tier',
         children: [
-          { id: 'gateway', data: { title: 'API Gateway', content: 'Kong · Rate Limiting · Auth' } },
+          { id: 'gateway', title: 'API Gateway', content: 'Kong · Rate Limiting · Auth' },
           {
             id: 'business',
-            data: { title: 'Business Services' },
+            title: 'Business Services',
             columns: 2,
             children: [
               {
                 id: 'core',
-                data: { title: 'Core' },
+                title: 'Core',
                 columns: 2,
                 children: [
-                  { id: 'auth', data: { title: 'Auth Service', content: 'JWT · OAuth2 · RBAC' } },
-                  {
-                    id: 'user',
-                    data: { title: 'User Service', content: 'Go · gRPC · PostgreSQL' },
-                  },
+                  { id: 'auth', title: 'Auth Service', content: 'JWT · OAuth2 · RBAC' },
+                  { id: 'user', title: 'User Service', content: 'Go · gRPC · PostgreSQL' },
                 ],
               },
               {
                 id: 'commerce',
-                data: { title: 'Commerce' },
+                title: 'Commerce',
                 children: [
-                  { id: 'order', data: { title: 'Order Service', content: 'Node.js · MongoDB' } },
-                  { id: 'payment', data: { title: 'Payment', content: 'Stripe · PayPal' } },
+                  { id: 'order', title: 'Order Service', content: 'Node.js · MongoDB' },
+                  { id: 'payment', title: 'Payment', content: 'Stripe · PayPal' },
                 ],
               },
             ],
           },
           {
             id: 'platform',
-            data: { title: 'Platform' },
+            title: 'Platform',
             columns: 3,
             children: [
-              { id: 'notif', data: { title: 'Notification', content: 'FCM · APNs' } },
-              { id: 'search', span: 2, data: { title: 'Search', content: 'Elasticsearch' } },
-              { id: 'analytics', span: 2, data: { title: 'Analytics', content: 'ClickHouse' } },
-              { id: 'logging', data: { title: 'Logging', content: 'OpenTelemetry' } },
+              { id: 'notif', title: 'Notification', content: 'FCM · APNs' },
+              { id: 'search', span: 2, title: 'Search', content: 'Elasticsearch' },
+              { id: 'analytics', span: 2, title: 'Analytics', content: 'ClickHouse' },
+              { id: 'logging', title: 'Logging', content: 'OpenTelemetry' },
             ],
           },
         ],

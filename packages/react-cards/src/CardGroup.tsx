@@ -1,11 +1,10 @@
-import type { LayoutNode } from '@nested-grid/core'
 import type { HTMLAttributes, ReactNode } from 'react'
 import { themeToVars } from './theme'
-import type { CardStyles, CardTheme } from './types'
+import type { CardLayoutNode, CardStyles, CardTheme } from './types'
 
 export interface CardGroupProps<T = unknown>
   extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
-  node: LayoutNode<T>
+  node: CardLayoutNode<T>
   theme?: CardTheme
   styles?: CardStyles
   children: ReactNode | null
@@ -20,8 +19,7 @@ export function CardGroup<T = unknown>({
   style,
   ...rest
 }: CardGroupProps<T>) {
-  const data = node.data as Record<string, unknown> | undefined
-  const title = data?.title ? String(data.title) : ''
+  const title = node.title ?? ''
 
   return (
     <div

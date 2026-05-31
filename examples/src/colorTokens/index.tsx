@@ -17,7 +17,7 @@ export function ColorTokens() {
           const data = node.data as ColorData | undefined
           if (data?.hex) {
             navigator.clipboard.writeText(data.hex).then(() => {
-              alert(`Copied ${data.name}: ${data.hex}`)
+              alert(`Copied ${node.title}: ${data?.hex}`)
             })
           }
         }}

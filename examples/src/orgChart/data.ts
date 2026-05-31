@@ -1,16 +1,20 @@
-import type { GridNode } from '@nested-grid/core'
+import type { CardGridNode } from '@nested-grid/react-cards'
 
 export interface MemberData {
-  name: string
   role: string
   email: string
   avatar: string
 }
 
-const member = (id: string, name: string, role: string, email: string): GridNode<MemberData> => ({
+const member = (
+  id: string,
+  name: string,
+  role: string,
+  email: string,
+): CardGridNode<MemberData> => ({
   id,
+  title: name,
   data: {
-    name,
     role,
     email,
     avatar: name
@@ -20,14 +24,16 @@ const member = (id: string, name: string, role: string, email: string): GridNode
   },
 })
 
-export const nodes: GridNode<MemberData>[] = [
+export const nodes: CardGridNode<MemberData>[] = [
   {
     id: 'company',
-    data: { name: 'Acme Corp', role: '', email: '', avatar: '' },
+    title: 'Acme Corp',
+    data: { role: '', email: '', avatar: '' },
     children: [
       {
         id: 'exec',
-        data: { name: 'Executive', role: '', email: '', avatar: '' },
+        title: 'Executive',
+        data: { role: '', email: '', avatar: '' },
         columns: 2,
         children: [
           member('ceo', 'Sarah Chen', 'CEO', 'sarah@acme.com'),
@@ -36,12 +42,14 @@ export const nodes: GridNode<MemberData>[] = [
       },
       {
         id: 'engineering',
-        data: { name: 'Engineering', role: '', email: '', avatar: '' },
+        title: 'Engineering',
+        data: { role: '', email: '', avatar: '' },
         columns: 2,
         children: [
           {
             id: 'frontend',
-            data: { name: 'Frontend', role: '', email: '', avatar: '' },
+            title: 'Frontend',
+            data: { role: '', email: '', avatar: '' },
             children: [
               member('alice', 'Alice Park', 'Senior Engineer', 'alice@acme.com'),
               member('bob', 'Bob Kumar', 'Engineer', 'bob@acme.com'),
@@ -50,7 +58,8 @@ export const nodes: GridNode<MemberData>[] = [
           },
           {
             id: 'backend',
-            data: { name: 'Backend', role: '', email: '', avatar: '' },
+            title: 'Backend',
+            data: { role: '', email: '', avatar: '' },
             children: [
               member('dave', 'Dave Liu', 'Staff Engineer', 'dave@acme.com'),
               member('frank', 'Frank Okonkwo', 'Engineer', 'frank@acme.com'),
@@ -58,7 +67,8 @@ export const nodes: GridNode<MemberData>[] = [
           },
           {
             id: 'platform',
-            data: { name: 'Platform', role: '', email: '', avatar: '' },
+            title: 'Platform',
+            data: { role: '', email: '', avatar: '' },
             children: [
               member('grace', 'Grace Miller', 'Engineer', 'grace@acme.com'),
               member('henry', 'Henry Zhao', 'DevOps Lead', 'henry@acme.com'),
@@ -68,7 +78,8 @@ export const nodes: GridNode<MemberData>[] = [
       },
       {
         id: 'design',
-        data: { name: 'Design', role: '', email: '', avatar: '' },
+        title: 'Design',
+        data: { role: '', email: '', avatar: '' },
         columns: 2,
         children: [
           member('iris', 'Iris Nakamura', 'Design Director', 'iris@acme.com'),
@@ -78,7 +89,8 @@ export const nodes: GridNode<MemberData>[] = [
       },
       {
         id: 'g-and-a',
-        data: { name: 'G&A', role: '', email: '', avatar: '' },
+        title: 'G&A',
+        data: { role: '', email: '', avatar: '' },
         columns: 2,
         children: [
           member('lisa', 'Lisa Thompson', 'VP Finance', 'lisa@acme.com'),

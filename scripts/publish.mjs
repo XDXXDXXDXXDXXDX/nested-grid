@@ -1,5 +1,4 @@
 import { execSync } from 'node:child_process'
-import { createInterface } from 'node:readline'
 import { readFileSync, writeFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -29,28 +28,17 @@ for (const pkg of PACKAGES) {
 console.log('\nBuilding...')
 execSync('pnpm build', { cwd: ROOT, stdio: 'inherit' })
 
-// 3. Commit + tag + push (GitHub is the source of truth)
+// 3. Commit + tag + push
 const tag = bumps.map((b) => `${b.name}@${b.new}`).join(', ')
 console.log(`\nCommitting: ${tag}`)
 execSync('git add packages/*/package.json', { cwd: ROOT, stdio: 'inherit' })
 execSync(`git commit -m "release: ${tag}"`, { cwd: ROOT, stdio: 'inherit' })
-
 execSync(`git tag -a "v${bumps[0].new}" -m "${tag}"`, { cwd: ROOT, stdio: 'inherit' })
-console.log('Pushing to GitHub...')
+console.log('Pushing...')
 execSync('git push --follow-tags', { cwd: ROOT, stdio: 'inherit' })
 
-// 4. Confirm before publishing to npm
-console.log(`\nAbout to publish to npm: ${tag}`)
-await new Promise((resolve) => {
-  const rl = createInterface({ input: process.stdin, output: process.stdout })
-  rl.question('Press Enter to continue, Ctrl+C to cancel...', () => {
-    rl.close()
-    resolve()
-  })
-})
-
-// 5. Publish
-console.log('Publishing...')
+// 4. Publish
+console.log('\nPublishing...')
 for (const pkg of PACKAGES) {
   execSync('pnpm publish --access public --no-git-checks', {
     cwd: resolve(ROOT, pkg),

@@ -1,69 +1,59 @@
-import type { GridNode } from '@nested-grid/core'
+import type { CardGridNode } from '@nested-grid/react-cards'
 
 export interface ProductData {
-  title?: string
-  content?: string
   tag?: string
   featured?: boolean
 }
 
-export const nodes: GridNode<ProductData>[] = [
+export const nodes: CardGridNode<ProductData>[] = [
   {
     id: 'root',
     virtual: true,
     children: [
       {
         id: 'mens',
-        data: { title: "Men's Collection" },
+        title: "Men's Collection",
         columns: 3,
         children: [
           {
             id: 'tops',
-            data: { title: 'Tops' },
+            title: 'Tops',
             columns: 2,
             span: 2,
             children: [
               {
                 id: 'shirts',
-                data: { title: 'Shirts' },
+                title: 'Shirts',
                 children: [
                   {
                     id: 'oxford',
-                    data: {
-                      title: 'Oxford Shirt',
-                      content: 'Classic-fit, 100% cotton.',
-                      tag: 'Best Seller',
-                    },
+                    title: 'Oxford Shirt',
+                    content: 'Classic-fit, 100% cotton.',
+                    data: { tag: 'Best Seller' },
                   },
                   {
                     id: 'linen',
-                    data: {
-                      title: 'Linen Shirt',
-                      content: 'Relaxed-fit, breathable linen.',
-                      tag: 'New',
-                    },
+                    title: 'Linen Shirt',
+                    content: 'Relaxed-fit, breathable linen.',
+                    data: { tag: 'New' },
                   },
                 ],
               },
               {
                 id: 'outerwear',
-                data: { title: 'Outerwear' },
+                title: 'Outerwear',
                 children: [
                   {
                     id: 'bomber',
-                    data: {
-                      title: 'Bomber Jacket',
-                      content: 'Lightweight nylon, ribbed trim.',
-                      featured: true,
-                    },
+                    title: 'Bomber Jacket',
+                    content: 'Lightweight nylon, ribbed trim.',
+                    data: { featured: true },
                   },
                   {
                     id: 'trench',
-                    data: {
-                      title: 'Trench Coat',
-                      content: 'Water-resistant cotton gabardine.',
-                      tag: 'Sale',
-                    },
+                    title: 'Trench Coat',
+                    content: 'Water-resistant cotton gabardine.',
+                    data: { tag: 'Sale' },
                   },
                 ],
               },
@@ -71,19 +61,19 @@ export const nodes: GridNode<ProductData>[] = [
           },
           {
             id: 'accessories',
-            data: { title: 'Accessories' },
+            title: 'Accessories',
             children: [
               {
                 id: 'belt',
-                data: { title: 'Leather Belt', content: 'Full-grain Italian leather.', tag: 'New' },
+                title: 'Leather Belt',
+                content: 'Full-grain Italian leather.',
+                data: { tag: 'New' },
               },
               {
                 id: 'watch',
-                data: {
-                  title: 'Chronograph Watch',
-                  content: 'Sapphire crystal, 42mm case.',
-                  featured: true,
-                },
+                title: 'Chronograph Watch',
+                content: 'Sapphire crystal, 42mm case.',
+                data: { featured: true },
               },
             ],
           },
@@ -91,54 +81,43 @@ export const nodes: GridNode<ProductData>[] = [
       },
       {
         id: 'womens',
-        data: { title: "Women's Collection" },
+        title: "Women's Collection",
         columns: 2,
         children: [
           {
             id: 'dresses',
-            data: { title: 'Dresses' },
+            title: 'Dresses',
             children: [
               {
                 id: 'midi',
-                data: {
-                  title: 'Midi Dress',
-                  content: 'A-line silhouette, floral print.',
-                  tag: 'Best Seller',
-                },
+                title: 'Midi Dress',
+                content: 'A-line silhouette, floral print.',
+                data: { tag: 'Best Seller' },
               },
-              {
-                id: 'maxi',
-                data: { title: 'Maxi Dress', content: 'Flowy rayon, adjustable waist.' },
-              },
+              { id: 'maxi', title: 'Maxi Dress', content: 'Flowy rayon, adjustable waist.' },
               {
                 id: 'wrap',
-                data: {
-                  title: 'Wrap Dress',
-                  content: 'Stretch jersey, true to size.',
-                  tag: 'Sale',
-                },
+                title: 'Wrap Dress',
+                content: 'Stretch jersey, true to size.',
+                data: { tag: 'Sale' },
               },
             ],
           },
           {
             id: 'bags',
-            data: { title: 'Bags' },
+            title: 'Bags',
             children: [
               {
                 id: 'tote',
-                data: {
-                  title: 'Canvas Tote',
-                  content: 'Reinforced handles, interior pocket.',
-                  featured: true,
-                },
+                title: 'Canvas Tote',
+                content: 'Reinforced handles, interior pocket.',
+                data: { featured: true },
               },
               {
                 id: 'crossbody',
-                data: {
-                  title: 'Crossbody Bag',
-                  content: 'Adjustable strap, pebbled leather.',
-                  tag: 'New',
-                },
+                title: 'Crossbody Bag',
+                content: 'Adjustable strap, pebbled leather.',
+                data: { tag: 'New' },
               },
             ],
           },
@@ -146,36 +125,38 @@ export const nodes: GridNode<ProductData>[] = [
       },
       {
         id: 'kids',
-        data: { title: "Kids' Collection" },
+        title: "Kids' Collection",
         columns: 6,
         children: [
           {
             id: 'onesie',
-            data: {
-              title: 'Cotton Onesie',
-              content: 'Soft, breathable fabric.',
-              tag: 'Best Seller',
-            },
+            title: 'Cotton Onesie',
+            content: 'Soft, breathable fabric.',
+            data: { tag: 'Best Seller' },
             span: 2,
           },
           {
             id: 'romper',
-            data: { title: 'Denim Romper', content: 'Durable denim, adjustable straps.' },
+            title: 'Denim Romper',
+            content: 'Durable denim, adjustable straps.',
             span: 2,
           },
           {
             id: 'sneakers',
-            data: { title: 'Kids Sneakers', content: 'Velcro straps, non-slip sole.' },
+            title: 'Kids Sneakers',
+            content: 'Velcro straps, non-slip sole.',
             span: 2,
           },
           {
             id: 'backpack',
-            data: { title: 'Mini Backpack', content: 'Lightweight, multi compartments.' },
+            title: 'Mini Backpack',
+            content: 'Lightweight, multi compartments.',
             span: 3,
           },
           {
             id: 'sweater',
-            data: { title: 'Knit Sweater', content: 'Cozy acrylic blend, ribbed cuffs.' },
+            title: 'Knit Sweater',
+            content: 'Cozy acrylic blend, ribbed cuffs.',
             span: 3,
           },
         ],

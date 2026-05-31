@@ -52,7 +52,7 @@ export function Timeline() {
               >
                 <span style={{ fontSize: 22 }}>{data?.icon}</span>
                 <span style={{ fontSize: 18, fontWeight: 800, color: '#4f46e5' }}>
-                  {data?.title}
+                  {node.title}
                 </span>
               </div>
               {children}

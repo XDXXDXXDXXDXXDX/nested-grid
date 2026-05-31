@@ -67,8 +67,20 @@ function processNode<T>(
     if (node.gridContainerStyle) Object.assign(gridContainerStyle, node.gridContainerStyle)
   }
 
+  const {
+    children: _rawChildren,
+    columns: _columns,
+    span: _span,
+    rowSpan: _rowSpan,
+    gap: _gap,
+    gridContainerStyle: _gcs,
+    gridItemStyle: _gis,
+    virtual: _virtual,
+    ...extra
+  } = node
+
   const layoutNode: LayoutNode<T> = {
-    id: node.id,
+    ...extra,
     type: hasChildren ? 'group' : 'item',
     depth,
     index,
@@ -76,7 +88,6 @@ function processNode<T>(
     gridContainerStyle,
     virtual: node.virtual ?? false,
     parent,
-    data: node.data,
   }
 
   if (node.children) {

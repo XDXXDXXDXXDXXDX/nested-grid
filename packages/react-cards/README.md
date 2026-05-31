@@ -26,16 +26,16 @@ import "@nested-grid/react-cards/styles.css";
 ## Quick start
 
 ```tsx
-import { NestedGridCards } from "@nested-grid/react-cards";
+import { NestedGridCards, type CardGridNode } from "@nested-grid/react-cards";
 import "@nested-grid/react-cards/styles.css";
 
-const nodes = [
+const nodes: CardGridNode[] = [
   {
     id: "fruits",
-    data: { title: "Fruits" },
+    title: "Fruits",
     children: [
-      { id: "apple", data: { title: "Apple" } },
-      { id: "banana", data: { title: "Banana" } },
+      { id: "apple", title: "Apple" },
+      { id: "banana", title: "Banana" },
     ],
   },
 ];
