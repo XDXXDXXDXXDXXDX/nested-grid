@@ -1,6 +1,6 @@
 {
   "name": "@nested-grid/react",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "React binding for @nested-grid/core — renders layout trees as DOM with headless, unstyled output.",
   "type": "module",
   "main": "./dist/index.js",
