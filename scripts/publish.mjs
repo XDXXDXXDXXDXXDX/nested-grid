@@ -52,7 +52,7 @@ await new Promise((resolve) => {
 // 5. Publish
 console.log('Publishing...')
 for (const pkg of PACKAGES) {
-  execSync('pnpm publish --access public', {
+  execSync('pnpm publish --access public --no-git-checks', {
     cwd: resolve(ROOT, pkg),
     stdio: 'inherit',
   })
