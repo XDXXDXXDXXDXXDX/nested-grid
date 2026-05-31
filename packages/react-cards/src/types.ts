@@ -21,9 +21,10 @@ export interface CardGridNode<T = unknown> extends Omit<GridNode<T>, 'children'>
  * LayoutNode with `title` and `content` at the top level.
  * Used as the N type parameter of NestedGridProps.
  */
-export interface CardLayoutNode<T = unknown> extends LayoutNode<T> {
+export interface CardLayoutNode<T = unknown> extends Omit<LayoutNode<T>, 'children'> {
   title?: string
   content?: string
+  children?: CardLayoutNode<T>[]
 }
 
 export interface CardTheme {
