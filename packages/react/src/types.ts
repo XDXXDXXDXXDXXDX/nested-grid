@@ -28,7 +28,7 @@ export interface NestedGridProps<T = unknown, N extends LayoutNode<T> = LayoutNo
   extends HTMLAttributes<HTMLDivElement> {
   nodes: GridNode<T>[]
   defaultColumns?: number | string
-  gap?: string | string[]
+  gap?: string
   /** Called for every node after renderItem/renderGroup. oriNode = result of item/group render. */
   renderNode?: (props: RenderNodeProps<T, N>) => ReactNode
   /** Called for item nodes. oriNode = default item render. */

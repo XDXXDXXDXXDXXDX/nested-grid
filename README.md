@@ -31,7 +31,7 @@ import { createLayout } from '@nested-grid/core'
 const layout = createLayout([
   {
     id: 'page',
-    columns: 3,              // grid-template-columns: repeat(3, 1fr)
+    columns: 3,              // grid-template-columns: repeat(3, minmax(0, 1fr))
     gap: '12px',
     virtual: true,           // transparent — no visual chrome
     children: [
@@ -49,10 +49,10 @@ import { NestedGrid } from '@nested-grid/react'
 
 <NestedGrid
   nodes={nodes}
-  gap={['16px', '12px']}    // per-depth: root=16px, children=12px
-  renderItem={({ node }) => <Card title={node.data.title} />}
+  gap="12px"
+  renderItem={({ node }) => <Card title={node.data?.title} />}
   renderGroup={({ node, children }) => (
-    <section><h2>{node.data.title}</h2>{children}</section>
+    <section><h2>{node.data?.title}</h2>{children}</section>
   )}
 />
 ```

@@ -46,7 +46,7 @@ export function App() {
     <NestedGrid
       nodes={nodes}
       gap="12px"
-      renderItem={({ node }) => <article>{node.data.title}</article>}
+      renderItem={({ node }) => <article>{node.data?.title}</article>}
     />
   );
 }
@@ -60,7 +60,7 @@ export function App() {
 | ----------------- | ------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
 | `nodes`           | `GridNode<T>[]`                             | Tree data                                                                                               |
 | `defaultColumns?` | `number \| string`                          | Default columns for groups without explicit `columns`                                                   |
-| `gap?`            | `string \| string[]`                        | Gap for grid containers. Array values map to depth (last value repeats).                                |
+| `gap?`            | `string`                                    | Default CSS `gap` for group nodes' inner grid containers (`.rng-grid`). |
 | `renderItem?`     | `(props: RenderItemProps<T>) => ReactNode`  | Render an item node                                                                                     |
 | `renderGroup?`    | `(props: RenderGroupProps<T>) => ReactNode` | Render a group node (receives pre-rendered `children`)                                                  |
 | `renderNode?`     | `(props: RenderNodeProps<T>) => ReactNode`  | Wraps every node after `renderItem`/`renderGroup`. `oriNode` is the result of the type-specific render. |
@@ -70,7 +70,12 @@ All `HTMLAttributes<HTMLDivElement>` props are also accepted and spread onto the
 
 ### Render callbacks
 
-All render callbacks receive `node` (the resolved `LayoutNode`), `depth`, `index`, and `oriNode` (the default render output). `renderGroup` and `renderNode` also receive pre-rendered `children`.
+All render callbacks receive `node` (the resolved `LayoutNode`), `depth`, `index`, and `oriNode`. `renderGroup` and `renderNode` also receive pre-rendered `children`.
+
+- `renderItem`: `oriNode` is `null`.
+- `renderGroup`: `oriNode` is the default group render, which is the internal child grid wrapper.
+- `renderNode`: runs after `renderItem` / `renderGroup` and receives their result as `oriNode`.
+- Virtual group nodes skip both `renderGroup` and `renderNode`, and render only their child grid.
 
 ```tsx
 // Just items
@@ -81,7 +86,7 @@ All render callbacks receive `node` (the resolved `LayoutNode`), `depth`, `index
   nodes={nodes}
   renderGroup={({ node, children }) => (
     <section>
-      <h2>{node.data.title}</h2>
+      <h2>{node.data?.title}</h2>
       {children}
     </section>
   )}
@@ -96,38 +101,45 @@ All render callbacks receive `node` (the resolved `LayoutNode`), `depth`, `index
 />
 ```
 
-### Per-depth gap
+### Gap
 
 ```tsx
 <NestedGrid
   nodes={nodes}
-  gap={["16px", "12px", "8px"]}
-  // depth 0 → 16px, depth 1 → 12px, depth 2+ → 8px
+  gap="12px"
 />
 ```
 
+### Re-exports from `@nested-grid/core`
+
+`@nested-grid/react` also re-exports `createLayout`, `toColumns`, `GridNode`, `LayoutNode`, and `CreateLayoutOptions` from `@nested-grid/core`, so you can import both the renderer and the layout types from one package.
+
 ## HTML output
 
-Each node renders a `<div>` with computed grid styles and data attributes:
+Each node renders an outer grid item wrapper, and group nodes also render an inner grid container for their children:
 
 ```html
 <div class="rng-root">
   <div
     class="rng-node rng-node-group rng-depth-0 rng-depth-even"
     data-id="root"
-    style="display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:12px;"
   >
     <div
-      class="rng-node rng-node-item rng-depth-1 rng-depth-odd"
-      data-id="a"
-      style="grid-column:span 2;"
-    ></div>
-    …
+      class="rng-grid"
+      style="display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:12px;"
+    >
+      <div
+        class="rng-node rng-node-item rng-depth-1 rng-depth-odd"
+        data-id="a"
+        style="grid-column:span 2;"
+      ></div>
+      …
+    </div>
   </div>
 </div>
 ```
 
-Group nodes get `display: grid` in their `gridContainerStyle`. Style with plain CSS, Tailwind, CSS Modules, or any design system.
+The outer `.rng-node` uses `gridItemStyle`. The inner `.rng-grid` uses `gridContainerStyle`. Style with plain CSS, Tailwind, CSS Modules, or any design system.
 
 ## More examples
 

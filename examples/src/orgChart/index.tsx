@@ -6,13 +6,13 @@ export function OrgChart() {
     <div>
       <h2 style={{ marginBottom: 16 }}>Organization Chart</h2>
       <p style={{ marginBottom: 16, color: '#666', fontSize: 14 }}>
-        Hierarchical org chart with four levels of nesting. Uses per-depth <code>gap</code> array,
+        Hierarchical org chart with four levels of nesting. Uses native CSS Grid <code>gap</code>,
         department-level <code>itemOnlyGap</code>, and <code>renderItem</code> for member cards with
         avatar initials and email.
       </p>
       <NestedGridCards
         nodes={nodes}
-        gap={['24px', '16px', '8px']}
+        gap="24px"
         itemOnlyGap="4px"
         theme={{
           groupBorder: 'none',

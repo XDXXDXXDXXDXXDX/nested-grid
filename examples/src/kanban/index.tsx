@@ -11,7 +11,7 @@ export function Kanban() {
       </p>
       <NestedGrid
         nodes={nodes}
-        gap={['16px', '8px']}
+        gap="16px"
         renderGroup={({ node, children }) => {
           const data = node.data as CardData | undefined
           return (

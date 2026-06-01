@@ -39,8 +39,8 @@ export interface LayoutNode<T = unknown> {
 
 export interface CreateLayoutOptions {
   defaultColumns?: number | string
-  /** Default gap for grid containers. Array values map to depth (last value repeats). */
-  defaultGap?: string | string[]
+  /** Default gap for grid containers. */
+  defaultGap?: string
   /** Default styles for every grid container. Merged at lowest priority. */
   defaultGridContainerStyle?: Record<string, string | undefined>
   /** Default styles for every grid item. Merged at lowest priority. */

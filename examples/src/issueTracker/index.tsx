@@ -18,7 +18,7 @@ export function IssueTracker() {
       </p>
       <NestedGrid
         nodes={nodes}
-        gap={['20px', '12px', '6px']}
+        gap="20px"
         renderGroup={({ node, children, depth }) => {
           const data = node.data as IssueData | undefined
           if (!data) return <>{children}</>

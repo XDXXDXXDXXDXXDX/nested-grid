@@ -11,7 +11,7 @@ JSON 树  →  计算 CSS Grid 样式  →  React DOM
 
 - **JSON 驱动** — 布局就是数据，不是手写的 div 汤。可以编辑、生成，或从接口拉取。
 - **原生 CSS Grid** — 每个节点映射为真实的 `display: grid`、`grid-template-columns`、`grid-column: span N`。不用绝对定位 hack。
-- **天然层级化** — 树节点自然嵌套为嵌套栅格。gap、列数、样式都支持按深度定制。
+- **天然层级化** — 树节点自然嵌套为嵌套栅格。列数、样式可按层级组织，gap 保持原生 CSS Grid 语义。
 - **虚拟分组** — 透明布局容器，只组织结构，不渲染视觉 chrome。
 - **TypeScript 优先** — 从 `GridNode` 定义到渲染 props，全程类型安全。
 
@@ -31,7 +31,7 @@ import { createLayout } from '@nested-grid/core'
 const layout = createLayout([
   {
     id: 'page',
-    columns: 3,              // grid-template-columns: repeat(3, 1fr)
+    columns: 3,              // grid-template-columns: repeat(3, minmax(0, 1fr))
     gap: '12px',
     virtual: true,           // 透明容器 — 无视觉 chrome
     children: [
@@ -49,10 +49,10 @@ import { NestedGrid } from '@nested-grid/react'
 
 <NestedGrid
   nodes={nodes}
-  gap={['16px', '12px']}    // 按深度：根=16px，子=12px
-  renderItem={({ node }) => <Card title={node.data.title} />}
+  gap="12px"
+  renderItem={({ node }) => <Card title={node.data?.title} />}
   renderGroup={({ node, children }) => (
-    <section><h2>{node.data.title}</h2>{children}</section>
+    <section><h2>{node.data?.title}</h2>{children}</section>
   )}
 />
 ```

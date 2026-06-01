@@ -49,33 +49,55 @@ function App() {
 
 ### `<NestedGridCards>`
 
-继承 `<NestedGrid>` 的所有 props。额外属性：
+继承 `<NestedGrid>` 的所有 props，包括 `defaultColumns`、`gap`、`renderItem`、`renderGroup`、`renderNode`、`onNodeClick`、`className`、`style` 以及其他根元素 `HTMLAttributes<HTMLDivElement>`。额外属性：
 
 | 属性 | 类型 | 说明 |
 |---|---|---|
 | `theme?` | `CardTheme` | 卡片主题覆盖 |
 | `showContent?` | `boolean` | 是否默认展开所有 item 内容 |
-| `itemOnlyGap?` | `string \| string[]` | 仅对子节点全为 item 的 group 生效的间距。用途：叶子 group 内部间距更紧凑 |
+| `itemOnlyGap?` | `string` | 仅对子节点全为 item 的 group 生效的间距。用途：叶子 group 内部间距更紧凑 |
+
+当你传入 `renderItem` 或 `renderGroup` 时，`NestedGridCards` 仍会先构建默认的 `<CardItem>` / `<CardGroup>`，并通过 `oriNode` 传给你的回调。
 
 ### `<CardItem>`
 
-带样式的 item 卡片。参数：
+带样式的 item 卡片。除以下属性外，还接受所有 `HTMLAttributes<HTMLDivElement>`：
 
 | 属性 | 类型 | 说明 |
 |---|---|---|
 | `node` | `CardLayoutNode<T>` | 布局节点，`title` 和 `content` 在顶层 |
-| `showContent?` | `boolean` | 展开内容体 |
+| `theme?` | `CardTheme` | 主题覆盖，会转换为当前卡片上的 CSS 变量 |
 | `styles?` | `CardStyles` | 样式覆盖：`header` 和 `body` CSS 属性 |
-| `titleExtra?` | `(state: { expanded: boolean }) => ReactNode` | 标题行附加元素（标签、徽章、开关） |
+| `showContent?` | `boolean` | 展开内容体 |
+| `titleExtra?` | `ReactNode \| ((state: { expanded: boolean }) => ReactNode)` | 标题行附加元素 |
 
 ### `<CardGroup>`
 
-带样式的 group 卡片。参数：
+带样式的 group 卡片。除 `children` 外，接受所有 `HTMLAttributes<HTMLDivElement>`，另外还有：
 
 | 属性 | 类型 | 说明 |
 |---|---|---|
 | `node` | `CardLayoutNode<T>` | 布局节点，`title` 在顶层 |
-| `children` | `ReactNode` | 预渲染的子节点 |
+| `theme?` | `CardTheme` | 主题覆盖，会转换为当前卡片上的 CSS 变量 |
+| `styles?` | `CardStyles` | 样式覆盖：`header` 和 `body` CSS 属性 |
+| `children` | `ReactNode \| null` | 预渲染的子节点 |
+
+### 类型
+
+| 导出 | 说明 |
+|---|---|
+| `CardData` | 最小数据结构，包含可选的 `title` 和 `content` |
+| `CardGridNode<T>` | 在顶层暴露 `title` 和 `content` 的 `GridNode<T>` 变体 |
+| `CardLayoutNode<T>` | 在顶层暴露 `title` 和 `content` 的 `LayoutNode<T>` 变体 |
+| `CardStyles` | 分区样式覆盖：`header` 和 `body` |
+| `CardTheme` | 被 `themeToVars` 和卡片组件消费的主题 token 对象 |
+
+### 重导出
+
+`@nested-grid/react-cards` 还会重导出：
+
+- 来自 `@nested-grid/core`：`createLayout`、`toColumns`、`GridNode`、`LayoutNode`、`CreateLayoutOptions`
+- 来自 `@nested-grid/react`：`NestedGrid`、`NestedGridProps`、`RenderItemProps`、`RenderGroupProps`、`RenderNodeProps`
 
 ### `CardTheme`
 
@@ -119,16 +141,6 @@ import { themeToVars } from '@nested-grid/react-cards'
   nodes={nodes}
   gap="16px"       // group 之间的间距
   itemOnlyGap="4px" // 叶子 group 内部 item 间距
-/>
-```
-
-同样支持按深度数组：
-
-```tsx
-<NestedGridCards
-  nodes={nodes}
-  gap={["16px", "12px"]}
-  itemOnlyGap={["6px", "4px"]}
 />
 ```
 

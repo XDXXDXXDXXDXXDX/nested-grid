@@ -7,12 +7,12 @@ export function PricingTable() {
       <h2 style={{ marginBottom: 16 }}>Pricing Table</h2>
       <p style={{ marginBottom: 16, color: '#666', fontSize: 14 }}>
         SaaS pricing page built with <code>renderGroup</code> for plan headers and{' '}
-        <code>renderItem</code> for feature rows. Uses <code>virtual</code> root, per-depth{' '}
-        <code>gap</code> array, and <code>onNodeClick</code> for CTA actions.
+        <code>renderItem</code> for feature rows. Uses <code>virtual</code> root, native CSS Grid{' '}
+        <code>gap</code>, and <code>onNodeClick</code> for CTA actions.
       </p>
       <NestedGrid
         nodes={nodes}
-        gap={['24px', '2px']}
+        gap="24px"
         onNodeClick={(node) => {
           const data = node.data as PlanData | undefined
           if (data?.cta && !node.children) alert(`${data.cta} → ${node.parent?.data?.name}`)

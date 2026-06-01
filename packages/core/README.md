@@ -49,7 +49,7 @@ function createLayout<T = unknown>(
 | Option | Type | Description |
 |---|---|---|
 | `defaultColumns` | `number \| string` | Fallback `grid-template-columns`. Number expands to `repeat(n, minmax(0, 1fr))`. |
-| `defaultGap` | `string \| string[]` | Default gap. Array values map to depth (last value repeats). Overrides `defaultGridContainerStyle.gap`. |
+| `defaultGap` | `string` | Default gap for grid containers. Overridden by node-level `gap` and `gridContainerStyle.gap`. |
 | `defaultGridContainerStyle` | `Record<string, string \| undefined>` | Default styles merged into every grid container. Lowest priority. |
 | `defaultGridItemStyle` | `Record<string, string \| undefined>` | Default styles merged into every grid item. Lowest priority. |
 
@@ -96,7 +96,7 @@ toColumns('200px 1fr')    // "200px 1fr" (passthrough)
 
 ### Style merge priority
 
-**gridContainerStyle**: `display:'grid'` → `defaultGridContainerStyle` → `defaultGap[depth]` → syntax sugar (`columns`, `gap`) → `node.gridContainerStyle`
+**gridContainerStyle**: `display:'grid'` → `defaultGridContainerStyle` → `defaultGap` → syntax sugar (`columns`, `gap`) → `node.gridContainerStyle`
 
 **gridItemStyle**: `defaultGridItemStyle` → syntax sugar (`span`, `rowSpan`) → `node.gridItemStyle`
 

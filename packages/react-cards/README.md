@@ -49,33 +49,55 @@ function App() {
 
 ### `<NestedGridCards>`
 
-Extends all props from `<NestedGrid>`. Additional props:
+Extends all props from `<NestedGrid>`, including `defaultColumns`, `gap`, `renderItem`, `renderGroup`, `renderNode`, `onNodeClick`, `className`, `style`, and other root `HTMLAttributes<HTMLDivElement>`. Additional props:
 
 | Prop           | Type                 | Description                                                                                                      |
 | -------------- | -------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | `theme?`       | `CardTheme`          | Theme overrides for cards                                                                                        |
 | `showContent?` | `boolean`            | Whether to expand all item content by default                                                                    |
-| `itemOnlyGap?` | `string \| string[]` | Gap applied to groups whose children are all items. Think: tighter spacing inside leaf groups vs between groups. |
+| `itemOnlyGap?` | `string` | Gap applied to groups whose children are all items. Think: tighter spacing inside leaf groups vs between groups. |
+
+When you provide `renderItem` or `renderGroup`, `NestedGridCards` still builds the default `<CardItem>` / `<CardGroup>` for you and passes it in `oriNode`.
 
 ### `<CardItem>`
 
-Styled item card. Accepts:
+Styled item card. Accepts all `HTMLAttributes<HTMLDivElement>` props plus:
 
 | Prop           | Type                                          | Description                                            |
 | -------------- | --------------------------------------------- | ------------------------------------------------------ |
 | `node`         | `CardLayoutNode<T>`                           | The layout node with `title` and `content` at top level |
-| `showContent?` | `boolean`                                     | Expand content body                                    |
+| `theme?`       | `CardTheme`                                   | Theme overrides converted to CSS variables on this card |
 | `styles?`      | `CardStyles`                                  | Style overrides: `header` and `body` CSS properties    |
-| `titleExtra?`  | `(state: { expanded: boolean }) => ReactNode` | Extra element in the title row (tags, badges, toggles) |
+| `showContent?` | `boolean`                                     | Expand content body                                    |
+| `titleExtra?`  | `ReactNode \| ((state: { expanded: boolean }) => ReactNode)` | Extra element in the title row                         |
 
 ### `<CardGroup>`
 
-Styled group card. Accepts:
+Styled group card. Accepts all `HTMLAttributes<HTMLDivElement>` props except `children`, plus:
 
 | Prop       | Type            | Description           |
 | ---------- | --------------- | --------------------- |
 | `node`     | `CardLayoutNode<T>` | The layout node with `title` at top level |
-| `children` | `ReactNode`     | Pre-rendered children |
+| `theme?`   | `CardTheme`     | Theme overrides converted to CSS variables on this card |
+| `styles?`  | `CardStyles`    | Style overrides: `header` and `body` CSS properties |
+| `children` | `ReactNode \| null` | Pre-rendered children |
+
+### Types
+
+| Export | Description |
+| --- | --- |
+| `CardData` | Minimal data shape with optional `title` and `content` |
+| `CardGridNode<T>` | `GridNode<T>` variant with `title` and `content` at the top level |
+| `CardLayoutNode<T>` | `LayoutNode<T>` variant with `title` and `content` at the top level |
+| `CardStyles` | Per-section style overrides: `header` and `body` |
+| `CardTheme` | Theme token object consumed by `themeToVars` and card components |
+
+### Re-exports
+
+`@nested-grid/react-cards` also re-exports:
+
+- From `@nested-grid/core`: `createLayout`, `toColumns`, `GridNode`, `LayoutNode`, `CreateLayoutOptions`
+- From `@nested-grid/react`: `NestedGrid`, `NestedGridProps`, `RenderItemProps`, `RenderGroupProps`, `RenderNodeProps`
 
 ### `CardTheme`
 
@@ -119,16 +141,6 @@ When a group contains only items (no nested groups), `itemOnlyGap` overrides the
   nodes={nodes}
   gap="16px" // space between groups
   itemOnlyGap="4px" // space between items in leaf groups
-/>
-```
-
-Also supports per-depth arrays:
-
-```tsx
-<NestedGridCards
-  nodes={nodes}
-  gap={["16px", "12px"]}
-  itemOnlyGap={["6px", "4px"]}
 />
 ```
 

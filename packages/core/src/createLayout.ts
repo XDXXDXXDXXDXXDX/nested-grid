@@ -4,7 +4,7 @@ import { toColumns } from './utils'
 interface ResolvedOptions {
   defaultGridContainerStyle: Record<string, string | undefined>
   defaultGridItemStyle: Record<string, string | undefined>
-  defaultGap: string | string[] | undefined
+  defaultGap: string | undefined
 }
 
 export function createLayout<T = unknown>(
@@ -29,15 +29,6 @@ function resolveContainerDefaults(
   return style
 }
 
-function resolveDepthValue(
-  value: string | string[] | undefined,
-  depth: number,
-): string | undefined {
-  if (value === undefined) return undefined
-  if (Array.isArray(value)) return value[Math.min(depth, value.length - 1)]
-  return value
-}
-
 function processNode<T>(
   node: GridNode<T>,
   depth: number,
@@ -60,8 +51,7 @@ function processNode<T>(
   }
 
   if (hasChildren) {
-    const depthGap = resolveDepthValue(options.defaultGap, depth)
-    if (depthGap !== undefined) gridContainerStyle.gap = depthGap
+    if (options.defaultGap !== undefined) gridContainerStyle.gap = options.defaultGap
     if (node.columns !== undefined) gridContainerStyle.gridTemplateColumns = toColumns(node.columns)
     if (node.gap !== undefined) gridContainerStyle.gap = node.gap
     if (node.gridContainerStyle) Object.assign(gridContainerStyle, node.gridContainerStyle)

@@ -55,7 +55,7 @@ export function Overview() {
 
       <Section
         title="@nested-grid/react"
-        subtitle="Headless — renderItem, renderGroup, renderNode, virtual groups, per-depth gap"
+        subtitle="Headless — renderItem, renderGroup, renderNode, virtual groups, native CSS Grid gap"
         nodes={reactNodes}
       />
 

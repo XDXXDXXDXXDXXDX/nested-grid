@@ -49,7 +49,7 @@ function createLayout<T = unknown>(
 | 选项 | 类型 | 说明 |
 |---|---|---|
 | `defaultColumns` | `number \| string` | 默认 `grid-template-columns`。数字展开为 `repeat(n, minmax(0, 1fr))` |
-| `defaultGap` | `string \| string[]` | 默认间距。数组值按深度映射（末尾值重复） |
+| `defaultGap` | `string` | grid 容器默认间距。可被节点级 `gap` 和 `gridContainerStyle.gap` 覆盖 |
 | `defaultGridContainerStyle` | `Record<string, string \| undefined>` | 合并到每个 grid 容器的默认样式。优先级最低 |
 | `defaultGridItemStyle` | `Record<string, string \| undefined>` | 合并到每个 grid 项的默认样式。优先级最低 |
 
@@ -96,7 +96,7 @@ toColumns('200px 1fr')    // "200px 1fr"（原样透传）
 
 ### 样式合并优先级
 
-**gridContainerStyle**: `display:'grid'` → `defaultGridContainerStyle` → `defaultGap[depth]` → 语法糖（`columns`、`gap`）→ `node.gridContainerStyle`
+**gridContainerStyle**: `display:'grid'` → `defaultGridContainerStyle` → `defaultGap` → 语法糖（`columns`、`gap`）→ `node.gridContainerStyle`
 
 **gridItemStyle**: `defaultGridItemStyle` → 语法糖（`span`、`rowSpan`）→ `node.gridItemStyle`
 

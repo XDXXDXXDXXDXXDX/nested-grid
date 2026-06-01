@@ -46,7 +46,7 @@ export function App() {
     <NestedGrid
       nodes={nodes}
       gap="12px"
-      renderItem={({ node }) => <article>{node.data.title}</article>}
+      renderItem={({ node }) => <article>{node.data?.title}</article>}
     />
   );
 }
@@ -60,7 +60,7 @@ export function App() {
 |---|---|---|
 | `nodes` | `GridNode<T>[]` | 树数据 |
 | `defaultColumns?` | `number \| string` | 无显式 `columns` 的 group 的默认列数 |
-| `gap?` | `string \| string[]` | grid 容器间距。数组值按深度映射（末尾值重复） |
+| `gap?` | `string` | group 节点内部 grid 容器（`.rng-grid`）的默认 CSS `gap` |
 | `renderItem?` | `(props: RenderItemProps<T>) => ReactNode` | 渲染 item 节点 |
 | `renderGroup?` | `(props: RenderGroupProps<T>) => ReactNode` | 渲染 group 节点（接收预渲染的 `children`） |
 | `renderNode?` | `(props: RenderNodeProps<T>) => ReactNode` | 包裹每个节点。`oriNode` 是类型对应渲染器的结果 |
@@ -70,7 +70,12 @@ export function App() {
 
 ### 渲染回调
 
-所有回调接收 `node`（解析后的 `LayoutNode`）、`depth`、`index` 和 `oriNode`（默认渲染输出）。`renderGroup` 和 `renderNode` 还接收预渲染的 `children`。
+所有回调接收 `node`（解析后的 `LayoutNode`）、`depth`、`index` 和 `oriNode`。`renderGroup` 和 `renderNode` 还接收预渲染的 `children`。
+
+- `renderItem`：`oriNode` 为 `null`
+- `renderGroup`：`oriNode` 为默认 group 渲染结果，也就是内部的子 grid 包裹层
+- `renderNode`：在 `renderItem` / `renderGroup` 之后执行，拿到它们的结果作为 `oriNode`
+- 虚拟 group 节点会跳过 `renderGroup` 和 `renderNode`，仅渲染其子 grid
 
 ```tsx
 // 只渲染 items
@@ -81,7 +86,7 @@ export function App() {
   nodes={nodes}
   renderGroup={({ node, children }) => (
     <section>
-      <h2>{node.data.title}</h2>
+      <h2>{node.data?.title}</h2>
       {children}
     </section>
   )}
@@ -96,38 +101,45 @@ export function App() {
 />
 ```
 
-### 按深度设置间距
+### Gap
 
 ```tsx
 <NestedGrid
   nodes={nodes}
-  gap={["16px", "12px", "8px"]}
-  // depth 0 → 16px, depth 1 → 12px, depth 2+ → 8px
+  gap="12px"
 />
 ```
 
+### 从 `@nested-grid/core` 重导出
+
+`@nested-grid/react` 同时重导出 `@nested-grid/core` 的 `createLayout`、`toColumns`、`GridNode`、`LayoutNode` 和 `CreateLayoutOptions`，这样可以只从一个包里导入渲染器和布局类型。
+
 ## HTML 输出
 
-每个节点渲染一个带计算 grid 样式和 data 属性的 `<div>`：
+每个节点都会渲染一个外层 grid item 包裹节点；group 节点还会额外渲染一个内部 grid 容器来承载子节点：
 
 ```html
 <div class="rng-root">
   <div
     class="rng-node rng-node-group rng-depth-0 rng-depth-even"
     data-id="root"
-    style="display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:12px;"
   >
     <div
-      class="rng-node rng-node-item rng-depth-1 rng-depth-odd"
-      data-id="a"
-      style="grid-column:span 2;"
-    ></div>
-    …
+      class="rng-grid"
+      style="display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:12px;"
+    >
+      <div
+        class="rng-node rng-node-item rng-depth-1 rng-depth-odd"
+        data-id="a"
+        style="grid-column:span 2;"
+      ></div>
+      …
+    </div>
   </div>
 </div>
 ```
 
-Group 节点的 `gridContainerStyle` 带有 `display: grid`。用纯 CSS、Tailwind、CSS Modules 或任何设计系统来写样式。
+外层 `.rng-node` 使用 `gridItemStyle`，内层 `.rng-grid` 使用 `gridContainerStyle`。可用纯 CSS、Tailwind、CSS Modules 或任何设计系统来写样式。
 
 ## 更多示例
 

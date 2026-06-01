@@ -11,7 +11,7 @@ export interface NestedGridCardsProps<T = unknown>
   nodes: CardGridNode<T>[]
   theme?: CardTheme
   showContent?: boolean
-  itemOnlyGap?: string | string[]
+  itemOnlyGap?: string
 }
 
 export function NestedGridCards<T = unknown>({
@@ -26,23 +26,18 @@ export function NestedGridCards<T = unknown>({
 }: NestedGridCardsProps<T>) {
   const resolvedNodes = useMemo(() => {
     if (!itemOnlyGap) return nodes
-    const resolveGap = (depth: number) =>
-      Array.isArray(itemOnlyGap)
-        ? itemOnlyGap[Math.min(depth, itemOnlyGap.length - 1)]
-        : itemOnlyGap
-
-    const walk = (list: CardGridNode<T>[], depth: number): CardGridNode<T>[] =>
+    const walk = (list: CardGridNode<T>[]): CardGridNode<T>[] =>
       list.map((node) => {
         if (!node.children) return node
         const childrenAllItems = node.children.every((child) => !child.children)
         return {
           ...node,
-          gap: childrenAllItems ? resolveGap(depth) : node.gap,
-          children: walk(node.children, depth + 1),
+          gap: childrenAllItems ? itemOnlyGap : node.gap,
+          children: walk(node.children),
         }
       })
 
-    return walk(nodes, 0)
+    return walk(nodes)
   }, [nodes, itemOnlyGap])
 
   return (

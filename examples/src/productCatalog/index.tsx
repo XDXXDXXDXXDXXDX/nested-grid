@@ -11,7 +11,7 @@ export function ProductCatalog() {
       </p>
       <NestedGridCards
         nodes={nodes}
-        gap={['16px', '8px']}
+        gap="16px"
         itemOnlyGap="8px"
         theme={{
           groupBorder: 'none',

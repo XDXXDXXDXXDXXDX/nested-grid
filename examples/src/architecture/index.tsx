@@ -11,7 +11,7 @@ export function Architecture() {
       </p>
       <NestedGridCards
         nodes={nodes}
-        gap={['12px', '8px']}
+        gap="12px"
         itemOnlyGap="8px"
         renderGroup={({ node, children }) => {
           let theme: typeof blue | undefined
