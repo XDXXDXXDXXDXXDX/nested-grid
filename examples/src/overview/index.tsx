@@ -1,4 +1,5 @@
 import { NestedGrid } from '@nested-grid/react'
+import githubIcon from '../github.png'
 import { DemoTile } from './DemoTile'
 import { cardsNodes, type OverviewData, reactNodes } from './data'
 
@@ -37,17 +38,35 @@ export function Overview() {
   return (
     <div style={{ padding: 24, background: '#f3f4f6', minHeight: '100vh' }}>
       <div style={{ textAlign: 'center', marginBottom: 32 }}>
-        <h1
+        <div
           style={{
-            fontSize: 32,
-            fontWeight: 800,
-            color: '#111827',
-            margin: 0,
-            letterSpacing: -0.5,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 10,
           }}
         >
-          nested-grid
-        </h1>
+          <h1
+            style={{
+              fontSize: 32,
+              fontWeight: 800,
+              color: '#111827',
+              margin: 0,
+              letterSpacing: -0.5,
+            }}
+          >
+            nested-grid
+          </h1>
+          <a
+            href="https://github.com/XDXXDXXDXXDXXDX/nested-grid"
+            target="_blank"
+            rel="noreferrer"
+            title="GitHub"
+            style={{ display: 'flex', alignItems: 'center' }}
+          >
+            <img src={githubIcon} alt="GitHub" width={24} height={24} />
+          </a>
+        </div>
         <p style={{ fontSize: 15, color: '#6b7280', margin: '6px 0 0' }}>
           Hierarchical grid layouts from tree data
         </p>

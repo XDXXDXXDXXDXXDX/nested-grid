@@ -3,6 +3,7 @@ import { Architecture } from './architecture'
 import { BentoGrid } from './bentoGrid'
 import { ColorTokens } from './colorTokens'
 import { Dashboard } from './dashboard'
+import githubIcon from './github.png'
 import { IssueTracker } from './issueTracker'
 import { Kanban } from './kanban'
 import { Magazine } from './magazine'
@@ -12,7 +13,6 @@ import { Overview } from './overview'
 import { PhotoWall } from './photoWall'
 import { PricingTable } from './pricingTable'
 import { ProductCatalog } from './productCatalog'
-
 import { SettingsPanel } from './settingsPanel'
 import { Timeline } from './timeline'
 
@@ -54,16 +54,38 @@ export function App() {
           overflow: 'auto',
         }}
       >
-        <h1
+        <div
           style={{
-            fontSize: 16,
-            fontWeight: 700,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 8,
             marginBottom: 16,
-            color: '#f5c2e7',
           }}
         >
-          nested-grid
-        </h1>
+          <h1
+            style={{
+              fontSize: 16,
+              fontWeight: 700,
+              margin: 0,
+              color: '#f5c2e7',
+            }}
+          >
+            nested-grid
+          </h1>
+          <a
+            href="https://github.com/XDXXDXXDXXDXXDX/nested-grid"
+            target="_blank"
+            rel="noreferrer"
+            title="GitHub"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              color: '#a6adc8',
+            }}
+          >
+            <img src={githubIcon} alt="GitHub" width={18} height={18} />
+          </a>
+        </div>
         {examples
           .filter((example) => example.library === 'overview')
           .map(({ key, label }) => (

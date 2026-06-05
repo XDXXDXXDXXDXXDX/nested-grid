@@ -1,6 +1,7 @@
 {
   "name": "examples",
   "private": true,
+  "homepage": "https://xdxxdxxdxxdxxdx.github.io/nested-grid/",
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1",

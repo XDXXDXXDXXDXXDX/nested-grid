@@ -1,6 +1,7 @@
 {
   "name": "nested-grid",
   "private": true,
+  "homepage": "https://xdxxdxxdxxdxxdx.github.io/nested-grid/",
   "scripts": {
     "dev": "pnpm --filter examples dev",
     "build": "pnpm -r build",
