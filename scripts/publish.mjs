@@ -31,7 +31,7 @@ execSync('pnpm build', { cwd: ROOT, stdio: 'inherit' })
 // 3. Commit + tag + push
 const tag = bumps.map((b) => `${b.name}@${b.new}`).join(', ')
 console.log(`\nCommitting: ${tag}`)
-execSync('git add packages/*/package.json', { cwd: ROOT, stdio: 'inherit' })
+execSync('git add packages/*/package.json docs/', { cwd: ROOT, stdio: 'inherit' })
 execSync(`git commit -m "release: ${tag}"`, { cwd: ROOT, stdio: 'inherit' })
 execSync(`git tag -a "v${bumps[0].new}" -m "${tag}"`, { cwd: ROOT, stdio: 'inherit' })
 console.log('Pushing...')
