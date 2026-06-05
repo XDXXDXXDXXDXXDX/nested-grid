@@ -1,6 +1,6 @@
 {
   "name": "@nested-grid/core",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "description": "Headless layout engine that maps tree data into hierarchical grid structures. Framework-agnostic, zero dependencies.",
   "type": "module",
   "main": "./dist/index.js",
