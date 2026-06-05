@@ -4,6 +4,10 @@ import { defineConfig } from 'vite'
 
 export default defineConfig({
   base: '/nested-grid/',
+  build: {
+    outDir: '../docs',
+    emptyOutDir: true,
+  },
   plugins: [react()],
   resolve: {
     alias: {
